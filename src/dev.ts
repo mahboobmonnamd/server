@@ -1,0 +1,81 @@
+import { restifyServer } from "./restify/index";
+import { RestifyHttpServerMethods } from "./restify/restifyHttpServer.interface";
+import { RestifyRoutes } from "./restify/restifyRoutes.interface";
+import { Request, Response, Next } from "restify";
+import { DataSharing } from "./share/index";
+import { ServerConfigurations, ServerType } from "./share/share.interface";
+import { Serversetup } from "./server/index";
+import { DBConnection, Postgres } from "./db";
+
+class TestClass implements RestifyRoutes {
+  routesDefinition(httpServer: RestifyHttpServerMethods): void {
+    httpServer.get("/", this.getRoute);
+    httpServer.post("/", this.getRoute);
+  }
+
+  getRoute(req: Request, res: Response, next: Next) {
+    res.send(200, {
+      message: "Test Data of get",
+    });
+  }
+}
+
+const factory = DataSharing.shareDataSubscription$("first").subscribe(
+  console.log
+);
+
+/** Example for data sharing */
+DataSharing.shareData("first", "some data");
+DataSharing.shareData("first", "some data1");
+DataSharing.shareData("first");
+
+/** Example to set system settings */
+let data: ServerConfigurations = {
+  server: ServerType.restify,
+  logPath: "/Volumes/4M/Codes/Projects/server_new/logs",
+};
+
+const db = {
+  DefaultConnectionRequired: true,
+  DBConnection: DBConnection.pg,
+  DBPostgresProperties: {
+    CONNECTION_NAME: "default",
+    DB_NAME: "beauty",
+    PASSWORD: process.env.PASSWORD,
+    USER_NAME: "mahboob",
+    DB_URL: process.env.DB_URL,
+    port: 5432,
+  },
+};
+
+try {
+  DataSharing.systemDefaults = data;
+  console.log(DataSharing.systemDefaults);
+  DataSharing.systemDefaults = data;
+} catch (error) {
+  console.log(error);
+}
+
+@Serversetup({
+  db: db,
+})
+class server {
+  constructor() {
+    restifyServer.startServer({
+      port: 1000,
+      CONTROLLERS: [new TestClass()],
+    });
+    /**
+     * validating the query connection
+     */
+    Postgres.queryUsingPoolConnection(`select * from core.lov`, null).then(
+      (suc) => {
+        console.log(`From TCL: : server -> constructor -> suc`, suc);
+      },
+      (err) => {
+        console.log(`From TCL: : server -> constructor -> err`, err);
+      }
+    );
+  }
+}
+new server();

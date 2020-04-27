@@ -1,0 +1,29 @@
+{
+  "name": "server_new",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "dev": "nodemon --exec cross-env PORT=10001 SOCKET_PORT=20001 NODE_ENV=development ts-node src/dev.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/restify": "^8.4.2",
+    "@types/socket.io": "^2.1.4",
+    "@types/pg": "^7.14.3",
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "bunyan-rotating-file-stream": "^1.6.3",
+    "pg": "^7.18.2",
+    "restify": "^8.5.1",
+    "rxjs": "^6.5.4",
+    "semver": "^7.1.3",
+    "socket.io": "^2.3.0"
+  }
+}
