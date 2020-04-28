@@ -1,2 +1,2 @@
-export * from "./postgres";
+export * from "./postgres/index";
 export * from "./db.interface";

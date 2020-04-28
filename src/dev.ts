@@ -2,9 +2,9 @@ import { restifyServer } from "./restify/index";
 import { RestifyHttpServerMethods } from "./restify/restifyHttpServer.interface";
 import { RestifyRoutes } from "./restify/restifyRoutes.interface";
 import { Request, Response, Next } from "restify";
-import { DataSharing } from "./share/index";
+import { DataSharing } from "./share/share.controller";
 import { ServerConfigurations, ServerType } from "./share/share.interface";
-import { Serversetup } from "./server/index";
+import { Serversetup } from "./server/serverSetup";
 import { DBConnection, Postgres } from "./db";
 
 class TestClass implements RestifyRoutes {
@@ -15,7 +15,7 @@ class TestClass implements RestifyRoutes {
 
   getRoute(req: Request, res: Response, next: Next) {
     res.send(200, {
-      message: "Test Data of get",
+      message: "s Test Data of get",
     });
   }
 }
@@ -32,7 +32,7 @@ DataSharing.shareData("first");
 /** Example to set system settings */
 let data: ServerConfigurations = {
   server: ServerType.restify,
-  logPath: "/Volumes/4M/Codes/Projects/server_new/logs",
+  logPath: "./logs",
 };
 
 const db = {
@@ -51,7 +51,10 @@ const db = {
 try {
   DataSharing.systemDefaults = data;
   console.log(DataSharing.systemDefaults);
-  DataSharing.systemDefaults = data;
+  DataSharing.systemDefaults = {
+    server: ServerType.restify,
+    logPath: "./logss",
+  };
 } catch (error) {
   console.log(error);
 }

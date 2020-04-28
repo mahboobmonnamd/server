@@ -1,2 +1,2 @@
-import { ServerSetupOpts } from "./server.interface";
-export declare function Serversetup(args: ServerSetupOpts): (constructor: Function) => void;
+export * from "./server.interface";
+export * from "./serverSetup";

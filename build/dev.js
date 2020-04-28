@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("./restify/index");
-var index_2 = require("./share/index");
+var share_controller_1 = require("./share/share.controller");
 var share_interface_1 = require("./share/share.interface");
-var index_3 = require("./server/index");
+var serverSetup_1 = require("./server/serverSetup");
 var db_1 = require("./db");
 var TestClass = /** @class */ (function () {
     function TestClass() {
@@ -23,20 +23,20 @@ var TestClass = /** @class */ (function () {
     };
     TestClass.prototype.getRoute = function (req, res, next) {
         res.send(200, {
-            message: "Test Data of get",
+            message: "s Test Data of get",
         });
     };
     return TestClass;
 }());
-var factory = index_2.DataSharing.shareDataSubscription$("first").subscribe(console.log);
+var factory = share_controller_1.DataSharing.shareDataSubscription$("first").subscribe(console.log);
 /** Example for data sharing */
-index_2.DataSharing.shareData("first", "some data");
-index_2.DataSharing.shareData("first", "some data1");
-index_2.DataSharing.shareData("first");
+share_controller_1.DataSharing.shareData("first", "some data");
+share_controller_1.DataSharing.shareData("first", "some data1");
+share_controller_1.DataSharing.shareData("first");
 /** Example to set system settings */
 var data = {
     server: share_interface_1.ServerType.restify,
-    logPath: "/Volumes/4M/Codes/Projects/server_new/logs",
+    logPath: "./logs",
 };
 var db = {
     DefaultConnectionRequired: true,
@@ -51,9 +51,12 @@ var db = {
     },
 };
 try {
-    index_2.DataSharing.systemDefaults = data;
-    console.log(index_2.DataSharing.systemDefaults);
-    index_2.DataSharing.systemDefaults = data;
+    share_controller_1.DataSharing.systemDefaults = data;
+    console.log(share_controller_1.DataSharing.systemDefaults);
+    share_controller_1.DataSharing.systemDefaults = {
+        server: share_interface_1.ServerType.restify,
+        logPath: "./logss",
+    };
 }
 catch (error) {
     console.log(error);
@@ -74,7 +77,7 @@ var server = /** @class */ (function () {
         });
     }
     server = __decorate([
-        index_3.Serversetup({
+        serverSetup_1.Serversetup({
             db: db,
         }),
         __metadata("design:paramtypes", [])
