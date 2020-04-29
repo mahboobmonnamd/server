@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var restify_1 = require("restify");
-var logs_1 = require("../logs");
+var logger_1 = require("../logger");
 /**
  * Create a singleton resify server.
  * RestifyServer.getInstance will allow to invoke the server object
@@ -207,7 +207,7 @@ var RestifyServer = /** @class */ (function () {
         }
         else {
             RestifyServer.restify = restify_1.createServer({
-                log: logs_1.BunyanLogger.getInstance().loggerInstance,
+                log: logger_1.BunyanLogger.getInstance().loggerInstance,
             });
         }
     };

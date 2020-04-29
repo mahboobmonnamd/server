@@ -8,7 +8,7 @@ import {
   RequestHandlerType,
 } from "restify";
 import { ServerOpts } from "../server/server.interface";
-import { BunyanLogger } from "../logs";
+import { BunyanLogger } from "../logger";
 
 /**
  * Create a singleton resify server.
