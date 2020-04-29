@@ -27,7 +27,7 @@ export class Postgres {
     } else {
       throw `Connection is already defined. Please you other connection name if connection property is different`;
     }
-    console.log(Postgres.connectionPools);
+    console.debug(Postgres.connectionPools);
   }
 
   /**
@@ -75,7 +75,7 @@ export class Postgres {
               return reject(err);
             });
         } else {
-          throw `Connection is not created with this name. Please check the connection`;
+          throw `Connection is not created with ${Postgres.connectionPools[connectionName]} name. Please check the connection`;
         }
       } catch (error) {
         return reject(error);

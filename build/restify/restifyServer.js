@@ -52,7 +52,7 @@ var RestifyServer = /** @class */ (function () {
                 return res.send(500, e);
             }
         });
-        console.log("Added route " + method.toUpperCase() + ": " + url);
+        console.debug("Added route " + method.toUpperCase() + ": " + url);
     };
     /**
      * Handles all unknown methods and response as success
@@ -110,7 +110,8 @@ var RestifyServer = /** @class */ (function () {
           }
       }
       */
-    RestifyServer.prototype.startServer = function (serverOpts) {
+    RestifyServer.prototype.startServer = function (serverOpts, routes) {
+        console.log("server");
         try {
             /**
              * SHOULD CREATE SERVER WITH OPTIONS LIKE SSL, LOGS, ETC.
@@ -134,7 +135,7 @@ var RestifyServer = /** @class */ (function () {
             /**
              * Initalize the routes
              */
-            this.initRouteControllers(serverOpts["CONTROLLERS"]);
+            this.initRouteControllers(routes);
             // Create web socket connection
             //   if (isSocketRequired) {
             //     new WSSocket().sockets(socketPort);

@@ -6,7 +6,7 @@ import { DataSharing } from "./share/share.controller";
 import { ServerConfigurations, ServerType } from "./share/share.interface";
 import { Serversetup } from "./server/serverSetup";
 import { DBConnection, Postgres } from "./db";
-
+require("dotenv").config();
 class TestClass implements RestifyRoutes {
   routesDefinition(httpServer: RestifyHttpServerMethods): void {
     httpServer.get("/", this.getRoute);
@@ -48,37 +48,39 @@ const db = {
   },
 };
 
-try {
-  DataSharing.systemDefaults = data;
-  console.log(DataSharing.systemDefaults);
-  DataSharing.systemDefaults = {
-    server: ServerType.restify,
-    logPath: "./logss",
-  };
-} catch (error) {
-  console.log(error);
-}
+// try {
+//   DataSharing.systemDefaults = data;
+//   console.log(DataSharing.systemDefaults);
+//   DataSharing.systemDefaults = {
+//     server: ServerType.restify,
+//     logPath: "./logss",
+//   };
+// } catch (error) {
+//   console.log(error);
+// }
 
 @Serversetup({
+  serverConfigurations: data,
+  serverOpts: { port: 1000 },
+  routesDefintions: [new TestClass()],
   db: db,
 })
 class server {
   constructor() {
-    restifyServer.startServer({
-      port: 1000,
-      CONTROLLERS: [new TestClass()],
-    });
+    // restifyServer.startServer({
+    //   CONTROLLERS: [new TestClass()],
+    // });
     /**
      * validating the query connection
      */
-    Postgres.queryUsingPoolConnection(`select * from core.lov`, null).then(
-      (suc) => {
-        console.log(`From TCL: : server -> constructor -> suc`, suc);
-      },
-      (err) => {
-        console.log(`From TCL: : server -> constructor -> err`, err);
-      }
-    );
+    // Postgres.queryUsingPoolConnection(`select * from core.lov`, null).then(
+    //   (suc) => {
+    //     console.log(`From TCL: : server -> constructor -> suc`, suc);
+    //   },
+    //   (err) => {
+    //     console.log(`From TCL: : server -> constructor -> err`, err);
+    //   }
+    // );
   }
 }
 new server();

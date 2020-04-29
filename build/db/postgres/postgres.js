@@ -14,7 +14,7 @@ var Postgres = /** @class */ (function () {
         else {
             throw "Connection is already defined. Please you other connection name if connection property is different";
         }
-        console.log(Postgres.connectionPools);
+        console.debug(Postgres.connectionPools);
     }
     /**
      * @param connectionProps credentials required to create connection pool to the db.
@@ -58,7 +58,7 @@ var Postgres = /** @class */ (function () {
                     });
                 }
                 else {
-                    throw "Connection is not created with this name. Please check the connection";
+                    throw "Connection is not created with " + Postgres.connectionPools[connectionName] + " name. Please check the connection";
                 }
             }
             catch (error) {

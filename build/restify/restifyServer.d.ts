@@ -31,7 +31,7 @@ declare class RestifyServer implements RestifyHttpServerMethods {
      * @param req restify request object
      * @param res restify response object
      */
-    startServer(serverOpts: ServerOpts): void;
+    startServer(serverOpts: ServerOpts, routes: object[]): void;
     /**
      * Handle the plugins initialization using pre and use of restify.
      *

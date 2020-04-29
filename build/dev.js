@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = require("./restify/index");
 var share_controller_1 = require("./share/share.controller");
 var share_interface_1 = require("./share/share.interface");
 var serverSetup_1 = require("./server/serverSetup");
 var db_1 = require("./db");
+require("dotenv").config();
 var TestClass = /** @class */ (function () {
     function TestClass() {
     }
@@ -50,34 +50,38 @@ var db = {
         port: 5432,
     },
 };
-try {
-    share_controller_1.DataSharing.systemDefaults = data;
-    console.log(share_controller_1.DataSharing.systemDefaults);
-    share_controller_1.DataSharing.systemDefaults = {
-        server: share_interface_1.ServerType.restify,
-        logPath: "./logss",
-    };
-}
-catch (error) {
-    console.log(error);
-}
+// try {
+//   DataSharing.systemDefaults = data;
+//   console.log(DataSharing.systemDefaults);
+//   DataSharing.systemDefaults = {
+//     server: ServerType.restify,
+//     logPath: "./logss",
+//   };
+// } catch (error) {
+//   console.log(error);
+// }
 var server = /** @class */ (function () {
     function server() {
-        index_1.restifyServer.startServer({
-            port: 1000,
-            CONTROLLERS: [new TestClass()],
-        });
+        // restifyServer.startServer({
+        //   CONTROLLERS: [new TestClass()],
+        // });
         /**
          * validating the query connection
          */
-        db_1.Postgres.queryUsingPoolConnection("select * from core.lov", null).then(function (suc) {
-            console.log("From TCL: : server -> constructor -> suc", suc);
-        }, function (err) {
-            console.log("From TCL: : server -> constructor -> err", err);
-        });
+        // Postgres.queryUsingPoolConnection(`select * from core.lov`, null).then(
+        //   (suc) => {
+        //     console.log(`From TCL: : server -> constructor -> suc`, suc);
+        //   },
+        //   (err) => {
+        //     console.log(`From TCL: : server -> constructor -> err`, err);
+        //   }
+        // );
     }
     server = __decorate([
         serverSetup_1.Serversetup({
+            serverConfigurations: data,
+            serverOpts: { port: 1000 },
+            routesDefintions: [new TestClass()],
             db: db,
         }),
         __metadata("design:paramtypes", [])

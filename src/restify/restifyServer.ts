@@ -71,7 +71,7 @@ class RestifyServer implements RestifyHttpServerMethods {
         return res.send(500, e);
       }
     });
-    console.log(`Added route ${method.toUpperCase()}: ${url}`);
+    console.debug(`Added route ${method.toUpperCase()}: ${url}`);
   }
 
   /**
@@ -131,7 +131,8 @@ class RestifyServer implements RestifyHttpServerMethods {
     }
     */
 
-  startServer(serverOpts: ServerOpts): void {
+  startServer(serverOpts: ServerOpts, routes: object[]): void {
+    console.log("server");
     try {
       /**
        * SHOULD CREATE SERVER WITH OPTIONS LIKE SSL, LOGS, ETC.
@@ -162,7 +163,7 @@ class RestifyServer implements RestifyHttpServerMethods {
       /**
        * Initalize the routes
        */
-      this.initRouteControllers(serverOpts["CONTROLLERS"]);
+      this.initRouteControllers(routes);
 
       // Create web socket connection
       //   if (isSocketRequired) {
