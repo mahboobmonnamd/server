@@ -83,7 +83,7 @@ class RestifyServer implements RestifyHttpServerMethods {
   /*
     private unknownMethodHandler(req: Request, res: Response) {
         try {
-            console.log('')
+            console.debug('')
             if (req.method) {
                 if (req.method.toLowerCase() === 'options') {
                     var allowHeaders = [
@@ -132,7 +132,6 @@ class RestifyServer implements RestifyHttpServerMethods {
     */
 
   startServer(serverOpts: ServerOpts, routes: object[]): void {
-    console.log("server");
     try {
       /**
        * SHOULD CREATE SERVER WITH OPTIONS LIKE SSL, LOGS, ETC.
@@ -156,7 +155,7 @@ class RestifyServer implements RestifyHttpServerMethods {
         req.log.info({ req: req, res: res }, "finished"); // (3)
       });
       process.on("unhandledRejection", (reason, p) => {
-        console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+        console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
         // application specific logging, throwing an error, or other logic here
       });
 
@@ -171,10 +170,10 @@ class RestifyServer implements RestifyHttpServerMethods {
       // }
 
       RestifyServer.restify.listen(serverOpts["port"], () =>
-        console.log(`Server is up and running on port ${serverOpts["port"]}`)
+        console.debug(`Server is up and running on port ${serverOpts["port"]}`)
       );
     } catch (error) {
-      console.log("RestifyServer -> initialize -> error", error);
+      console.error("RestifyServer -> initialize -> error", error);
       process.exit();
     }
   }
@@ -215,7 +214,7 @@ class RestifyServer implements RestifyHttpServerMethods {
           controller.routesDefinition(this);
         }
       } catch (error) {
-        console.log("ApiServer -> initControllers -> error", error);
+        console.error("ApiServer -> initControllers -> error", error);
       }
     });
   }

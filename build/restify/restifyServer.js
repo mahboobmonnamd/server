@@ -63,7 +63,7 @@ var RestifyServer = /** @class */ (function () {
     /*
       private unknownMethodHandler(req: Request, res: Response) {
           try {
-              console.log('')
+              console.debug('')
               if (req.method) {
                   if (req.method.toLowerCase() === 'options') {
                       var allowHeaders = [
@@ -111,7 +111,6 @@ var RestifyServer = /** @class */ (function () {
       }
       */
     RestifyServer.prototype.startServer = function (serverOpts, routes) {
-        console.log("server");
         try {
             /**
              * SHOULD CREATE SERVER WITH OPTIONS LIKE SSL, LOGS, ETC.
@@ -129,7 +128,7 @@ var RestifyServer = /** @class */ (function () {
                 req.log.info({ req: req, res: res }, "finished"); // (3)
             });
             process.on("unhandledRejection", function (reason, p) {
-                console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+                console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
                 // application specific logging, throwing an error, or other logic here
             });
             /**
@@ -141,11 +140,11 @@ var RestifyServer = /** @class */ (function () {
             //     new WSSocket().sockets(socketPort);
             // }
             RestifyServer.restify.listen(serverOpts["port"], function () {
-                return console.log("Server is up and running on port " + serverOpts["port"]);
+                return console.debug("Server is up and running on port " + serverOpts["port"]);
             });
         }
         catch (error) {
-            console.log("RestifyServer -> initialize -> error", error);
+            console.error("RestifyServer -> initialize -> error", error);
             process.exit();
         }
     };
@@ -184,7 +183,7 @@ var RestifyServer = /** @class */ (function () {
                 }
             }
             catch (error) {
-                console.log("ApiServer -> initControllers -> error", error);
+                console.error("ApiServer -> initControllers -> error", error);
             }
         });
     };

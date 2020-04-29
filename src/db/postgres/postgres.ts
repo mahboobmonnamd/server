@@ -119,7 +119,6 @@ export class Postgres {
     }
     Postgres.clientConnections[listenerName].query(`LISTEN "${listenerName}"`);
     Postgres.clientConnections[listenerName].on("notification", (data) => {
-      console.log(data);
       //   FIXME Should emit the data
     });
     // TODO should return event emitter based on the connection name. So, that when there is a notification the corresponding user will be notified.
