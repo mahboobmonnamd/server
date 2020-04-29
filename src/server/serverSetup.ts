@@ -3,7 +3,6 @@ import { DBConnection } from "../db";
 import { ServerType, DataSharing } from "../share";
 
 export function Serversetup(args: ServerSetupOpts) {
-  console.debug("server setup");
   return function (constructor: Function) {
     createDB();
     serverConfiguration();

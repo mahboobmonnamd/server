@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var db_1 = require("../db");
 var share_1 = require("../share");
 function Serversetup(args) {
-    console.debug("server setup");
     return function (constructor) {
         createDB();
         serverConfiguration();
