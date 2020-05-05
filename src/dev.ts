@@ -31,7 +31,7 @@ DataSharing.shareData("first");
 
 /** Example to set system settings */
 let data: ServerConfigurations = {
-  server: ServerType.restify,
+  server: ServerType.express,
   logPath: "./logs",
 };
 

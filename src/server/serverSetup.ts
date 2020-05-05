@@ -14,6 +14,9 @@ export function Serversetup(args: ServerSetupOpts) {
       if (args.serverConfigurations.server == ServerType.restify) {
         const restifyServer = require("./../restify/index").restifyServer;
         restifyServer.startServer(args.serverOpts, args.routesDefintions);
+      } else if (args.serverConfigurations.server == ServerType.express) {
+        const expressServer = require("./../express/index").expressServer;
+        expressServer.startServer(args.serverOpts, args.routesDefintions);
       }
     } catch (error) {
       console.log(error);

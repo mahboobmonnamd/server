@@ -5,7 +5,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./db/index"));
 __export(require("./logger/index"));
-__export(require("./restify/index"));
+// export * from "./restify/index";
 __export(require("./server/index"));
 __export(require("./share/index"));
 //# sourceMappingURL=index.js.map
