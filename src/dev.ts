@@ -14,9 +14,16 @@ class TestClass implements RestifyRoutes {
   }
 
   getRoute(req: Request, res: Response, next: Next) {
-    res.send(200, {
-      message: "s Test Data of get",
-    });
+    Postgres.insertsUsingConnectionPoolAsTranscations(`query`, null)
+      .then((succ) => {
+        console.log(succ);
+        res.send(200, {
+          message: "s Test Data of get",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 

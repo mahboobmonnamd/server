@@ -30,6 +30,8 @@ export declare class Postgres {
      * DB.query('SELECT create_sale_order('{}'), null, true)
      */
     static queryUsingPoolConnection(text: any, params: any, connectionName?: string): Promise<unknown>;
+    static insertsUsingConnectionPoolAsTranscations(text: any, params: any, connectionName?: string): Promise<unknown>;
+    private static shouldAbort;
     private createClientConnectionProps;
     /**
      * To create any client connection with out disturbing the exisiting connections this can be used.

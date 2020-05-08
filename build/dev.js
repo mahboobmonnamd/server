@@ -22,8 +22,15 @@ var TestClass = /** @class */ (function () {
         httpServer.post("/", this.getRoute);
     };
     TestClass.prototype.getRoute = function (req, res, next) {
-        res.send(200, {
-            message: "s Test Data of get",
+        db_1.Postgres.insertsUsingConnectionPoolAsTranscations("query", null)
+            .then(function (succ) {
+            console.log(succ);
+            res.send(200, {
+                message: "s Test Data of get",
+            });
+        })
+            .catch(function (err) {
+            console.log(err);
         });
     };
     return TestClass;
@@ -35,7 +42,7 @@ share_controller_1.DataSharing.shareData("first", "some data1");
 share_controller_1.DataSharing.shareData("first");
 /** Example to set system settings */
 var data = {
-    server: share_interface_1.ServerType.restify,
+    server: share_interface_1.ServerType.express,
     logPath: "./logs",
 };
 var db = {

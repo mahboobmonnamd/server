@@ -83,6 +83,71 @@ export class Postgres {
     });
   }
 
+  public static insertsUsingConnectionPoolAsTranscations(
+    text,
+    params,
+    connectionName = "default"
+  ) {
+    return new Promise((resolve, reject) => {
+      try {
+        if (typeof Postgres.connectionPools[connectionName] !== "undefined") {
+          return Postgres.connectionPools[connectionName]
+            .query("BEGIN")
+            .then((_) => {
+              // execute main query
+              Postgres.connectionPools[connectionName].query(
+                text,
+                params,
+                (err, success) => {
+                  if (err) {
+                    return this.shouldAbort(connectionName)
+                      .then((success) => {
+                        return reject(success);
+                      })
+                      .catch((err) => {
+                        return reject(err);
+                      });
+                  }
+                  // commit the transcation
+                  Postgres.connectionPools[connectionName].query(
+                    "COMMIT",
+                    (err) => {
+                      if (err) {
+                        console.log(err.stack);
+                      }
+                      return resolve(success);
+                    }
+                  );
+                }
+              );
+            })
+            .catch(async (err) => {
+              const rollback = await this.shouldAbort(connectionName);
+              console.log(`From TCL: : Postgres -> rollback`, rollback);
+              return reject(err);
+            });
+        } else {
+          throw `Connection is not created with ${Postgres.connectionPools[connectionName]} name. Please check the connection`;
+        }
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+
+  private static shouldAbort(connectionName) {
+    return new Promise((resolve, reject) => {
+      return Postgres.connectionPools[connectionName]
+        .query("ROLLBACK")
+        .then((success) => {
+          return resolve(success);
+        })
+        .catch((err) => {
+          return reject(err);
+        });
+    });
+  }
+
   //   TODO: Client connection implementation is draft needs to validate.
   private createClientConnectionProps(connectionProps?) {
     return new Client({
