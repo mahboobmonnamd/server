@@ -9,4 +9,5 @@ __export(require("./restify/index"));
 __export(require("./server/index"));
 __export(require("./share/index"));
 __export(require("./express/index"));
+__export(require("./rest-call/index"));
 //# sourceMappingURL=index.js.map
