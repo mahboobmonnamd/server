@@ -83,6 +83,7 @@ export class Postgres {
     });
   }
 
+  /*
   public static insertsUsingConnectionPoolAsTranscations(
     text,
     params,
@@ -134,6 +135,7 @@ export class Postgres {
       }
     });
   }
+*/
 
   private static shouldAbort(connectionName) {
     return new Promise((resolve, reject) => {
