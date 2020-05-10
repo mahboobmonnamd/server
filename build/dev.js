@@ -22,16 +22,16 @@ var TestClass = /** @class */ (function () {
         httpServer.post("/", this.getRoute);
     };
     TestClass.prototype.getRoute = function (req, res, next) {
-        db_1.Postgres.insertsUsingConnectionPoolAsTranscations("query", null)
-            .then(function (succ) {
-            console.log(succ);
-            res.send(200, {
-                message: "s Test Data of get",
-            });
-        })
-            .catch(function (err) {
-            console.log(err);
-        });
+        // Postgres.insertsUsingConnectionPoolAsTranscations(`query`, null)
+        //   .then((succ) => {
+        //     console.log(succ);
+        //     res.send(200, {
+        //       message: "s Test Data of get",
+        //     });
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
     };
     return TestClass;
 }());
