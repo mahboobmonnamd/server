@@ -8,4 +8,5 @@ __export(require("./logger/index"));
 __export(require("./restify/index"));
 __export(require("./server/index"));
 __export(require("./share/index"));
+__export(require("./express/index"));
 //# sourceMappingURL=index.js.map
