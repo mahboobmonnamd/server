@@ -11,18 +11,22 @@ export declare class DataSharing {
      * To maintain run time values use this object. Whenever there is a change in the object it will be notified.
      */
     private static shareSubject;
-    private static shareDataObjects;
+    private static singletonDataObjectObjects;
     private static subjectObjects;
     /**
-     * To have a share data with observable. So that when ever there is a change in shareData object notification will be passed to it.
+     * To have a share data with observable. So that when ever there is a change in singletonDataObject object notification will be passed to it.
      * @param key to share the particular object
      */
-    static shareDataSubscription$(key: any): BehaviorSubject<any>;
+    static singletonDataObjectSubscription$(key: any): BehaviorSubject<any>;
     /**
-     * set and notify shareData
+     * set and notify singletonDataObject
      * @param key to monitor particular object
      * @param value to be stored against the key.
      * If value is empty, it will emit the existing data to the subscriptions of the key
      */
-    static shareData(key: any, value?: any): void;
+    static singletonDataObject(key: any, value?: any): void;
+    /**
+     *
+     */
+    static getSingletonDataObject(key: any): any;
 }

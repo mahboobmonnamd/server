@@ -35,11 +35,11 @@ var TestClass = /** @class */ (function () {
     };
     return TestClass;
 }());
-var factory = share_controller_1.DataSharing.shareDataSubscription$("first").subscribe(console.log);
+var factory = share_controller_1.DataSharing.singletonDataObjectSubscription$("first").subscribe(console.log);
 /** Example for data sharing */
-share_controller_1.DataSharing.shareData("first", "some data");
-share_controller_1.DataSharing.shareData("first", "some data1");
-share_controller_1.DataSharing.shareData("first");
+share_controller_1.DataSharing.singletonDataObject("first", "some data");
+share_controller_1.DataSharing.singletonDataObject("first", "some data1");
+share_controller_1.DataSharing.singletonDataObject("first");
 /** Example to set system settings */
 var data = {
     server: share_interface_1.ServerType.express,

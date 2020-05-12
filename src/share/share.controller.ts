@@ -23,29 +23,38 @@ export class DataSharing {
    * To maintain run time values use this object. Whenever there is a change in the object it will be notified.
    */
   private static shareSubject = {};
-  private static shareDataObjects: {} = {};
+  private static singletonDataObjectObjects: {} = {};
   private static subjectObjects: any[] = [];
   /**
-   * To have a share data with observable. So that when ever there is a change in shareData object notification will be passed to it.
+   * To have a share data with observable. So that when ever there is a change in singletonDataObject object notification will be passed to it.
    * @param key to share the particular object
    */
-  static shareDataSubscription$(key): BehaviorSubject<any> {
+  static singletonDataObjectSubscription$(key): BehaviorSubject<any> {
     if (this.subjectObjects.indexOf(key) == -1) {
       this.subjectObjects.push(key);
       this.shareSubject[key] = new BehaviorSubject<any>({});
     }
-    return this.shareSubject[key].asObservable(this.shareDataObjects[key]);
+    return this.shareSubject[key].asObservable(
+      this.singletonDataObjectObjects[key]
+    );
   }
   /**
-   * set and notify shareData
+   * set and notify singletonDataObject
    * @param key to monitor particular object
    * @param value to be stored against the key.
    * If value is empty, it will emit the existing data to the subscriptions of the key
    */
-  static shareData(key, value?) {
+  static singletonDataObject(key, value?) {
     if (value) {
-      this.shareDataObjects[key] = value;
+      this.singletonDataObjectObjects[key] = value;
     }
-    this.shareSubject[key].next(this.shareDataObjects[key]);
+    this.shareSubject[key].next(this.singletonDataObjectObjects[key]);
+  }
+
+  /**
+   *
+   */
+  static getSingletonDataObject(key) {
+    return this.singletonDataObjectObjects[key];
   }
 }

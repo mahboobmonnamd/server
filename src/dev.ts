@@ -27,14 +27,14 @@ class TestClass implements RestifyRoutes {
   }
 }
 
-const factory = DataSharing.shareDataSubscription$("first").subscribe(
+const factory = DataSharing.singletonDataObjectSubscription$("first").subscribe(
   console.log
 );
 
 /** Example for data sharing */
-DataSharing.shareData("first", "some data");
-DataSharing.shareData("first", "some data1");
-DataSharing.shareData("first");
+DataSharing.singletonDataObject("first", "some data");
+DataSharing.singletonDataObject("first", "some data1");
+DataSharing.singletonDataObject("first");
 
 /** Example to set system settings */
 let data: ServerConfigurations = {
