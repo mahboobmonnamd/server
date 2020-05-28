@@ -70,7 +70,7 @@ const db = {
   serverConfigurations: data,
   serverOpts: { port: 1000 },
   routesDefintions: [new TestClass()],
-  db: db,
+  // db: db,
 })
 class server {
   constructor() {

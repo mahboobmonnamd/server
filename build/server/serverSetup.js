@@ -4,7 +4,9 @@ var db_1 = require("../db");
 var share_1 = require("../share");
 function Serversetup(args) {
     return function (constructor) {
-        createDB();
+        if (args.db !== undefined) {
+            createDB();
+        }
         serverConfiguration();
     };
     function serverConfiguration() {

@@ -4,7 +4,9 @@ import { ServerType, DataSharing } from "../share";
 
 export function Serversetup(args: ServerSetupOpts) {
   return function (constructor: Function) {
-    createDB();
+    if (args.db !== undefined) {
+      createDB();
+    }
     serverConfiguration();
   };
   function serverConfiguration() {
