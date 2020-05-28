@@ -89,7 +89,6 @@ var server = /** @class */ (function () {
             serverConfigurations: data,
             serverOpts: { port: 1000 },
             routesDefintions: [new TestClass()],
-            db: db,
         }),
         __metadata("design:paramtypes", [])
     ], server);

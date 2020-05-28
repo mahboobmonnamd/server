@@ -40,7 +40,9 @@ var DataSharing = /** @class */ (function () {
         if (value) {
             this.singletonDataObjectObjects[key] = value;
         }
-        this.shareSubject[key].next(this.singletonDataObjectObjects[key]);
+        if (this.shareSubject[key] !== undefined) {
+            this.shareSubject[key].next(this.singletonDataObjectObjects[key]);
+        }
     };
     /**
      *
