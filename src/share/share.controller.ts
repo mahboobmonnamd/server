@@ -31,12 +31,16 @@ export class DataSharing {
    */
   static singletonDataObjectSubscription$(key): BehaviorSubject<any> {
     if (this.subjectObjects.indexOf(key) == -1) {
-      this.subjectObjects.push(key);
-      this.shareSubject[key] = new BehaviorSubject<any>({});
+      this.createShareSubject(key);
     }
     return this.shareSubject[key].asObservable(
       this.singletonDataObjectObjects[key]
     );
+  }
+
+  private static createShareSubject(key) {
+    this.subjectObjects.push(key);
+    this.shareSubject[key] = new BehaviorSubject<any>({});
   }
   /**
    * set and notify singletonDataObject
@@ -50,6 +54,8 @@ export class DataSharing {
     }
     if (this.shareSubject[key] !== undefined) {
       this.shareSubject[key].next(this.singletonDataObjectObjects[key]);
+    } else {
+      this.createShareSubject(key);
     }
   }
 

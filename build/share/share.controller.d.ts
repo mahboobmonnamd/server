@@ -18,6 +18,7 @@ export declare class DataSharing {
      * @param key to share the particular object
      */
     static singletonDataObjectSubscription$(key: any): BehaviorSubject<any>;
+    private static createShareSubject;
     /**
      * set and notify singletonDataObject
      * @param key to monitor particular object

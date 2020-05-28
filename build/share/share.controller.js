@@ -25,10 +25,13 @@ var DataSharing = /** @class */ (function () {
      */
     DataSharing.singletonDataObjectSubscription$ = function (key) {
         if (this.subjectObjects.indexOf(key) == -1) {
-            this.subjectObjects.push(key);
-            this.shareSubject[key] = new rxjs_1.BehaviorSubject({});
+            this.createShareSubject(key);
         }
         return this.shareSubject[key].asObservable(this.singletonDataObjectObjects[key]);
+    };
+    DataSharing.createShareSubject = function (key) {
+        this.subjectObjects.push(key);
+        this.shareSubject[key] = new rxjs_1.BehaviorSubject({});
     };
     /**
      * set and notify singletonDataObject
@@ -42,6 +45,9 @@ var DataSharing = /** @class */ (function () {
         }
         if (this.shareSubject[key] !== undefined) {
             this.shareSubject[key].next(this.singletonDataObjectObjects[key]);
+        }
+        else {
+            this.createShareSubject(key);
         }
     };
     /**
